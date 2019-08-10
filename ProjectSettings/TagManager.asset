@@ -10,6 +10,10 @@ TagManager:
   - TargetObject
   - Hittable
   - Enemy
+  - Wall
+  - MoveGround
+  - bGround1
+  - bGround2
   layers:
   - Default
   - TransparentFX

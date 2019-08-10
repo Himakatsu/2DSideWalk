@@ -18,9 +18,15 @@ EditorBuildSettings:
     path: Assets/UnityChan2D/Demo/Scenes/World 1-1.unity
     guid: bc1bc11bd56944cb68646a65a5fff077
   - enabled: 1
+    path: Assets/Scenes/Title.unity
+    guid: 8c8eeaab68feca14095be682a9332a8c
+  - enabled: 1
     path: Assets/Scenes/1-1.unity
     guid: f0e4f66f6bc824e4591858cecf6d4cc7
   - enabled: 1
     path: Assets/Scenes/1-2.unity
     guid: e1aa7320316aa3a4a948c0d9637d9cd9
+  - enabled: 1
+    path: Assets/Scenes/2-1.unity
+    guid: ab1aa7b95a2204e5388ade122510295b
   m_configObjects: {}

@@ -9,38 +9,55 @@ public class CameraChanger : MonoBehaviour
     //SubCameraを格納
     [SerializeField] private GameObject subCamera;
     //CanMoveがtrueの時のみ、Playerが移動可能となる
-    public static bool canMove = false;
+    public static bool canMove = true;
 
-    public static bool check = true;
+    public static bool check = false;
+
+    public static int cameraNum = 0;
         // Start is called before the first frame update
     void Start()
     {
-        mainCamera.SetActive(false);
-        subCamera.SetActive(true);
+        mainCamera.SetActive(true);
+        subCamera.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if(Input.GetKeyDown(KeyCode.Q))
         {
             ViewChange();
         }
     }
-    void ViewChange()
+    public void ViewChange()
     {
-        if(mainCamera.activeSelf)
-        {
-            mainCamera.SetActive(false);
-            canMove = false;
-            subCamera.SetActive(true);
-            check = true;        
-        }
-        else
-        {
-            mainCamera.SetActive(true);
-            canMove = true;
-            subCamera.SetActive(false);
-        }
+
+
+
+            if (mainCamera.activeSelf)
+            {
+
+
+                mainCamera.SetActive(false);
+                canMove = false;
+                subCamera.SetActive(true);
+                check = true;
+
+
+            }
+            else
+            {
+                mainCamera.SetActive(true);
+                canMove = true;
+                subCamera.SetActive(false);
+                check = false;
+
+
+            }
+       
+
+        
+
     }
 }

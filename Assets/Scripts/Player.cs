@@ -43,8 +43,14 @@ public class Player : MonoBehaviour
                 rigi.gravityScale = 1;
             }
         }
-        
-        
+
+        else if(CameraChanger.canMove == false)
+        {
+            rigi.velocity = Vector2.zero;
+            anim.SetInteger("Speed", 0);
+        }
+
+
     }
     void Move()
     {
@@ -111,6 +117,11 @@ public class Player : MonoBehaviour
             isGround = true;
             anim.SetBool("isGround", true);
            
+        }
+
+        else
+        {
+            return;
         }
     }
     /*private void OnCollisionEnter(Collision collision)

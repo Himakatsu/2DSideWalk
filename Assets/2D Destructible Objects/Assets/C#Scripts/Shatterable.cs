@@ -9,7 +9,11 @@ public class Shatterable : MonoBehaviour, IHittable
     private SpriteRenderer render;
     private Rigidbody2D rigi;
     [SerializeField] private CircleCollider2D cColli;
-    [Range(0.0f, 5.0f), SerializeField] private float radius;
+    [Range(0.0f, 10.0f), SerializeField] private float radius;
+
+
+
+
     // Use this for initialization
     void Start()
     {
@@ -47,6 +51,8 @@ public class Shatterable : MonoBehaviour, IHittable
         else if(collision.gameObject.tag == "Enemy")
         {
             Enemy.searchTrigger = true;
+
+
         }
     }
 
@@ -57,6 +63,7 @@ public class Shatterable : MonoBehaviour, IHittable
             rigi.gravityScale = 0;
             Die();
             cColli.radius = radius;
+
         }
         /*else if(collision.gameObject.tag == "Enemy")
         {

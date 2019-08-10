@@ -6,6 +6,8 @@ using DG.Tweening;
 public class Enemy : MonoBehaviour
 {
     Animator anim;
+
+    Rigidbody2D rigi;
     //移動速度
     [SerializeField] private float moveSeed;
     //プレイヤーを格納
@@ -20,29 +22,54 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject gameoverCanvas;
     //音（collider）による状態変化
     public static bool searchTrigger = false;
-    [SerializeField] private GameObject target;
+
+    [SerializeField] private GameObject target1, target2;
+
     [Range(0.5f, 10.0f), SerializeField] private float moveTime;
     //音がした方向への移動距離
-    [SerializeField] private Vector3 distance;
+    [SerializeField] private Vector3 distance1,distance2;
     //音がした方向への振り向き
     [SerializeField] private Vector3 rotate;
+
+    [SerializeField] private enum EnemyType
+    {
+        rotater,stayer,walker
+    }
+
+    [SerializeField] private EnemyType _enemyType = EnemyType.rotater;
+
+    [SerializeField] private int wayPoint = 1;
+
+    [SerializeField] private int another = -1;
+
+
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponentInChildren<Animator>();
+        rigi = GetComponent<Rigidbody2D>();
         gameoverCanvas.SetActive(false);
+
+        distance1 = target1.transform.position;
+        distance2 = target2.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         //その場に停止して左右を見続ける挙動を示す
-        if(stopRotate == false)
+        if(stopRotate == false && _enemyType == EnemyType.rotater)
         {
             Rotate();
         }
+
+        else if(_enemyType == EnemyType.walker)
+        {
+            Walker();
+        }
         //視界内にプレイヤーが入った場合、プレイヤーに向かって移動を開始する
-        if(canMove == true)
+        if (canMove == true)
         {
             Move();
         }
@@ -51,6 +78,8 @@ public class Enemy : MonoBehaviour
         {
             Search();
             stopRotate = true;
+            Debug.Log(searchTrigger);
+            //searchTrigger = false;
         }
     }
 
@@ -100,14 +129,33 @@ public class Enemy : MonoBehaviour
 
     }
     //大きな音がなった方向へ移動する
-    private void Search()
+    public void Search()
     {
 
         
-        transform.DOMove(distance, moveTime);
+        transform.DOMove(distance1, moveTime);
         transform.Rotate(rotate);
-        searchTrigger = false;
+
         
         
+    }
+
+    private void Walker()
+    {
+
+        rigi.velocity = new Vector2(moveSeed * Time.deltaTime * wayPoint, rigi.velocity.y);
+        anim.SetInteger("Run", 1);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Wall")
+        {
+            wayPoint *= another;
+            anim.SetInteger("Run", 2);
+            transform.Rotate(0, 180, 0);
+          
+
+        }
     }
 }
